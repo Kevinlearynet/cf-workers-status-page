@@ -27,21 +27,14 @@ You can either deploy with **Cloudflare Deploy Button** using GitHub Actions or 
 
 ### Deploy with Cloudflare Deploy Button
 
-[![Deploy to Cloudflare Workers](https://camo.githubusercontent.com/1f3d0b4d44a2c3f12c78bd02bae907169430e04d728006db9f97a4befa64c886/68747470733a2f2f6465706c6f792e776f726b6572732e636c6f7564666c6172652e636f6d2f627574746f6e3f706169643d74727565)](https://deploy.workers.cloudflare.com/?url=https://github.com/eidam/cf-workers-status-page)
+[Deploy to Cloudflare Workers](https://deploy.workers.cloudflare.com/?url=https://github.com/eidam/cf-workers-status-page)
 
 1. Click the button and follow the instructions, you should end up with a clone of this repository
 2. Navigate to your new **GitHub repository &gt; Settings &gt; Secrets** and add the following secrets:
 
    ```yaml
    - Name: CF_API_TOKEN (should be added automatically)
-
    - Name: CF_ACCOUNT_ID (should be added automatically)
-
-   - Name: SECRET_SLACK_WEBHOOK_URL (optional)
-   - Value: your-slack-webhook-url
-
-   - Name: SECRET_DISCORD_WEBHOOK_URL (optional)
-   - Value: your-discord-webhook-url
    ```
 
 3. Navigate to the **Actions** settings in your repository and enable them
@@ -126,45 +119,57 @@ WIP - Support for Durable Objects - Cloudflare's product for low-latency coordin
 There is also a managed version of this project, currently in beta. Feel free to check it out https://statusflare.com (https://twitter.com/statusflare_com).
 
 ## Running project locally
+
 **Requirements**
+
 - Linux or WSL
 - Yarn (`npm i -g yarn`)
 - Node 14+
 
 ### Steps to get server up and running
+
 **Install wrangler**
+
 ```
 npm i -g wrangler
 ```
 
 **Login With Wrangler to Cloudflare**
+
 ```
 wrangler login
 ```
 
 **Create your KV namespace in cloudflare**
+
 ```
 On the workers page navigate to KV, and create a namespace
 ```
 
 **Update your wrangler.toml with**
+
 ```
 kv-namespaces = [{binding="KV_STATUS_PAGE", id="<KV_ID>", preview_id="<KV_ID>"}]
 ```
+
 _Note: you may need to change `kv-namespaces` to `kv_namespaces`_
 
 **Install packages**
+
 ```
 yarn install
 ```
 
 **Create CSS**
+
 ```
 yarn run css
 ```
 
 **Run**
+
 ```
 yarn run dev
 ```
+
 _Note: If the styles do not come through try using `localhost:8787` instead of `localhost:8080`_
